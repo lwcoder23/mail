@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.mail.member.feign.CouponFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +29,23 @@ import com.common.utils.R;
 @RestController
 @RequestMapping("member/member")
 public class MemberController {
+
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    CouponFeignService couponFeignService;
+
+    /*
+    *   open feign test
+    * */
+    @RequestMapping("/test")
+    public R test() {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setNickname("name");
+        R r = couponFeignService.memberCoupons();
+        return R.ok().put("memberCoupons", memberEntity).put("coupons", r.get("coupons"));
+    }
 
     /**
      * 列表
