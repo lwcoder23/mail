@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        ## 精确路由放在模糊路由之前，否则被模糊路由拦截
+        - id: product-route
+          uri: lb://mail-product
+          predicates:
+            - Path=/renren-admin/product/**
+          filters:
+            - RewritePath=/renren-admin/(?<segment>.*),/$\{segment}
+
+        - id: admin-route
+          ## lb: 负载均衡到 renren-fast
+          uri: lb://renren-fast
+          ## 断言规则详见 spring gateway doc, 多种断言规则任意挑选
+          predicates:
+            - Path=/renren-admin/**
+          filters:
+            - RewritePath=/renren-admin/(?<segment>.*),/renren-fast/$\{segment}
+

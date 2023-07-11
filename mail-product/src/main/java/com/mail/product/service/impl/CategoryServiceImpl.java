@@ -1,7 +1,11 @@
 package com.mail.product.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,6 +28,38 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<CategoryEntity> listWithTree() {
+
+        List<CategoryEntity> allCategoryEntity = this.baseMapper.selectList(null);
+
+        List<CategoryEntity> level1Menus = allCategoryEntity.stream().filter(categoryEntity ->
+                categoryEntity.getParentCid() == 0
+        ).map( categoryEntity -> {
+            categoryEntity.setChildren(getChildren(categoryEntity, allCategoryEntity));
+            return categoryEntity;
+        }).sorted( (menu1, menu2) -> {
+            return (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort());
+        }).collect(Collectors.toList());
+
+        return level1Menus;
+    }
+
+    // 递归获取子分类
+    private List<CategoryEntity> getChildren(CategoryEntity root, List<CategoryEntity> allCategoryEntity) {
+
+        List<CategoryEntity> children = allCategoryEntity.stream().filter(categoryEntity ->
+                categoryEntity.getParentCid() == root.getCatId()
+        ).map(categoryEntity -> {
+            categoryEntity.setChildren(getChildren(categoryEntity, allCategoryEntity));
+            return categoryEntity;
+        }).sorted((menu1, menu2) ->
+                (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort())
+        ).collect(Collectors.toList());
+
+        return children;
     }
 
 }
