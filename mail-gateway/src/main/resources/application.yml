@@ -10,6 +10,13 @@ spring:
           filters:
             - RewritePath=/renren-admin/(?<segment>.*),/$\{segment}
 
+        - id: third-party-route
+          uri: lb://mail-third-party
+          predicates:
+            - Path=/renren-admin/thirdparty/**
+          filters:
+            - RewritePath=/renren-admin/thirdparty/(?<segment>.*),/$\{segment}
+
         - id: admin-route
           ## lb: 负载均衡到 renren-fast
           uri: lb://renren-fast

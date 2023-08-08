@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+server:
+  port: 30000
+alibaba:
+  cloud:
+    access-key: LTAI5t6eqFi1NiuJLoHkPycA
+    secret-key: X7mqzYAv20XYScRBR9knZyvTo6kRok
+    oss:
+      endpoint: oss-cn-shenzhen.aliyuncs.com

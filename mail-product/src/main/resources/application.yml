@@ -8,8 +8,15 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+    alicloud:
+      access-key: LTAI5t6eqFi1NiuJLoHkPycA
+      secret-key: X7mqzYAv20XYScRBR9knZyvTo6kRok
+      oss:
+        endpoint: https://oss-cn-shenzhen.aliyuncs.com
+      bucket-name: mail-boot
   application:
     name: mail-product
+
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
