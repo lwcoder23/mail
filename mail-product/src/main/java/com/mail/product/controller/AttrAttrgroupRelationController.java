@@ -16,8 +16,6 @@ import com.mail.product.service.AttrAttrgroupRelationService;
 import com.common.utils.PageUtils;
 import com.common.utils.R;
 
-
-
 /**
  * 属性&属性分组关联
  *
