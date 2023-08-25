@@ -3,7 +3,10 @@ package com.mail.product.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.mail.product.dao.AttrAttrgroupRelationDao;
 import com.mail.product.entity.AttrAttrgroupRelationEntity;
+import com.mail.product.entity.AttrEntity;
+import com.mail.product.service.AttrService;
 import com.mail.product.vo.AttrGroupRelationVo;
+import com.mail.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Resource
     AttrAttrgroupRelationDao relationDao;
+
+    @Resource
+    AttrService attrService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -72,6 +78,28 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
         relationDao.deleteBatchRelation(entities);
 
+    }
+
+    /**
+     * 根据三级分类的id来查询分组下的所有属性分组以及分组下的属性
+     * @param catelogId
+     * @return
+     */
+    @Override
+    public List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId) {
+        //1、查询分组信息
+        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
+
+        //2、查询所有属性
+        List<AttrGroupWithAttrsVo> collect = attrGroupEntities.stream().map(group -> {
+            AttrGroupWithAttrsVo attrsVo = new AttrGroupWithAttrsVo();
+            BeanUtils.copyProperties(group,attrsVo);
+            List<AttrEntity> attrs = attrService.getRelationAttr(attrsVo.getAttrGroupId());
+            attrsVo.setAttrs(attrs);
+            return attrsVo;
+        }).collect(Collectors.toList());
+
+        return collect;
     }
 
 }

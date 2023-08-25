@@ -61,7 +61,6 @@ public class SpuInfoController {
     // @RequiresPermissions("product:spuinfo:save")
     public R save(@RequestBody SpuInfoEntity spuInfo){
 		spuInfoService.save(spuInfo);
-
         return R.ok();
     }
 

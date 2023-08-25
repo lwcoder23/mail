@@ -38,7 +38,6 @@ public class MemberLevelController {
     // @RequiresPermissions("member:memberlevel:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = memberLevelService.queryPage(params);
-
         return R.ok().put("page", page);
     }
 

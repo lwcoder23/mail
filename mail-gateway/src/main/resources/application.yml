@@ -10,6 +10,13 @@ spring:
           filters:
             - RewritePath=/renren-admin/(?<segment>.*),/$\{segment}
 
+        - id: member-route
+          uri: lb://mail-member
+          predicates:
+            - Path=/renren-admin/member/**
+          filters:
+            - RewritePath=/renren-admin/(?<segment>.*),/$\{segment}
+
         - id: third-party-route
           uri: lb://mail-third-party
           predicates:

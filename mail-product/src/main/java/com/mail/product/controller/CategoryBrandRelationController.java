@@ -3,9 +3,12 @@ package com.mail.product.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.mail.product.entity.BrandEntity;
+import com.mail.product.vo.BrandVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +56,25 @@ public class CategoryBrandRelationController {
         return R.ok().put("data", data);
     }
 
+    /*
+    *   /product/categorybrandrelation/brands/list
+    *   获取分类关联的品牌
+    *
+    *   controller 接收请求，处理和校验参数
+    *   service 处理数据，返回
+    *   controller 再处理 service返回的数据，封装成页面所需的 vo
+    * */
+    @RequestMapping("/brands/list")
+    public R relationBrandsList(@RequestParam(value = "catId", required = true) Long catId) {
+        List<BrandEntity> vos = categoryBrandRelationService.getBrandsByCatId(catId);
+        List<BrandVo> brandVoList = vos.stream().map((vo) -> {
+            BrandVo brandVo = new BrandVo();
+            brandVo.setBrandId(vo.getBrandId());
+            brandVo.setBrandName(vo.getName());
+            return brandVo;
+        }).collect(Collectors.toList());
+        return R.ok().put("data", brandVoList);
+    }
 
     /**
      * 信息
@@ -65,7 +87,7 @@ public class CategoryBrandRelationController {
         return R.ok().put("categoryBrandRelation", categoryBrandRelation);
     }
 
-    /**
+    /** 
      * 保存
      */
     @RequestMapping("/save")

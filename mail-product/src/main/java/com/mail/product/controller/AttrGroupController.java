@@ -11,6 +11,7 @@ import com.mail.product.service.AttrAttrgroupRelationService;
 import com.mail.product.service.AttrService;
 import com.mail.product.service.CategoryService;
 import com.mail.product.vo.AttrGroupRelationVo;
+import com.mail.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,6 +68,16 @@ public class AttrGroupController {
                   @PathVariable("attrgroupId") Long attrgroupId){
         PageUtils page = attrService.getNoRelation(params, attrgroupId);
         return R.ok().put("page", page);
+    }
+
+    /*
+    *  获取分类下所有分组&分组下的关联的所有属性
+    *  /product/attrgroup/{catelogId}/withattr
+    * */
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId) {
+        List<AttrGroupWithAttrsVo> vos = attrGroupService.getAttrGroupWithAttrsByCatelogId(catelogId);
+        return R.ok().put("data", vos);
     }
 
     /**
