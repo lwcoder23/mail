@@ -185,18 +185,20 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         this.baseMapper.insert(infoEntity);
     }
 
-    /*@Override
+    @Override
     public PageUtils queryPageByCondition(Map<String, Object> params) {
 
         QueryWrapper<SpuInfoEntity> wrapper = new QueryWrapper<>();
 
+        // 动态添加上条件
         String key = (String) params.get("key");
         if(!StringUtils.isEmpty(key)){
+            // status=1 and (id=1 or spu_name like xxx) 内嵌的条件应该在and中使用箭头函数加上
             wrapper.and((w)->{
                 w.eq("id",key).or().like("spu_name",key);
             });
         }
-        // status=1 and (id=1 or spu_name like xxx)
+
         String status = (String) params.get("status");
         if(!StringUtils.isEmpty(status)){
             wrapper.eq("publish_status",status);
@@ -212,18 +214,12 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             wrapper.eq("catalog_id",catelogId);
         }
 
-        /**
-         * status: 2
-         * key:
-         * brandId: 9
-         * catelogId: 225
-         *//*
         IPage<SpuInfoEntity> page = this.page(
                 new Query<SpuInfoEntity>().getPage(params),
                 wrapper
         );
 
         return new PageUtils(page);
-    }*/
+    }
 
 }
