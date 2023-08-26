@@ -4,13 +4,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import com.common.valid.UpdateStatusGroup;
 import com.common.valid.validAnnotation.ListValue;
 import com.common.validator.group.AddGroup;
 import com.common.validator.group.UpdateGroup;
-import com.mail.product.exception.MailExceptionControllerAdvice;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
