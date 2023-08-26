@@ -7,7 +7,7 @@ server:
   port: 30000
 alibaba:
   cloud:
-    access-key: LTAI5t6eqFi1NiuJLoHkPycA
-    secret-key: X7mqzYAv20XYScRBR9knZyvTo6kRok
+    access-key: 
+    secret-key: 
     oss:
       endpoint: oss-cn-shenzhen.aliyuncs.com
