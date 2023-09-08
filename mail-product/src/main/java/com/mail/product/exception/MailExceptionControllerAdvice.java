@@ -1,15 +1,13 @@
 package com.mail.product.exception;
 
-import com.common.exception.BizCodeEnume;
+import com.common.exception.BizCodeEnum;
 import com.common.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,12 +24,12 @@ public class MailExceptionControllerAdvice {
         bindingResult.getFieldErrors().forEach((fieldError -> {
             errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
         }));
-        return R.error(BizCodeEnume.VALID_EXCEPTION.getCode(), BizCodeEnume.VALID_EXCEPTION.getMsg()).put("data", errorMap);
+        return R.error(BizCodeEnum.VALID_EXCEPTION.getCode(), BizCodeEnum.VALID_EXCEPTION.getMessage()).put("data", errorMap);
     }
 
     @ExceptionHandler(value = Throwable.class)
     public R handleException(Throwable e) {
-        return R.error(BizCodeEnume.UNKNOWN_EXCEPTION.getCode(), BizCodeEnume.UNKNOWN_EXCEPTION.getMsg());
+        return R.error(BizCodeEnum.UNKNOWN_EXCEPTION.getCode(), BizCodeEnum.UNKNOWN_EXCEPTION.getMessage());
     }
 
 }

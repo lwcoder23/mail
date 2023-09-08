@@ -8,7 +8,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@MapperScan("com.mail.product.dao")
 @EnableFeignClients(basePackages = "com.mail.product.feign")
 public class MailProductApplication {
 

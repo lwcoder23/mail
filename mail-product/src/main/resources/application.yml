@@ -16,6 +16,8 @@ spring:
       bucket-name: mail-boot
   application:
     name: mail-product
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 
 
 mybatis-plus:

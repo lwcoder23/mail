@@ -8,25 +8,34 @@
 
 package com.common.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 返回数据
- *
- * @author Mark sunlightcs@gmail.com
- */
 public class R extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public R() {
 		put("code", 0);
 		put("msg", "success");
 	}
-	
+
+	public R setData(Object data) {
+		put("data", data);
+		return this;
+	}
+
+	public <T> T getData(TypeReference<T> typeReference) {
+		Object data = get("data");
+		String jsonString = JSON.toJSONString(data);
+		T t = JSON.parseObject(jsonString, typeReference);
+		return t;
+	}
+
 	public static R error() {
 		return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, "未知异常，请联系管理员");
 	}
