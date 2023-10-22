@@ -1,18 +1,12 @@
 package com.mail.search.vo;
 
 import lombok.Data;
-
 import java.util.List;
-
-/**
- * @Description: 封装页面所有可能传递过来的查询条件
- * @Created: with IntelliJ IDEA.
- * @author: 夏沫止水
- * @createTime: 2020-06-13 14:17
- **/
 
 @Data
 public class SearchParam {
+
+    //  xxxx?catelog3Id=225&keyword=huawei&sort=saleCount_desc
 
     /**
      * 页面传递过来的全文匹配关键字
@@ -30,9 +24,11 @@ public class SearchParam {
     private Long catalog3Id;
 
     /**
-     * 排序条件：sort=price/salecount/hotscore_desc/asc
+     * 排序条件：sort=skuPrice_desc
      */
     private String sort;
+
+    // 以下为一些过滤条件
 
     /**
      * 是否显示有货

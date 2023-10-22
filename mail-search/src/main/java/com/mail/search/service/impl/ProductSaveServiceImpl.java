@@ -50,7 +50,6 @@ public class ProductSaveServiceImpl implements ProductSaveService {
 
         //TODO 如果批量错误
         boolean hasFailures = bulk.hasFailures();
-
         List<String> collect = Arrays.asList(bulk.getItems()).stream().map(item -> {
             return item.getId();
         }).collect(Collectors.toList());

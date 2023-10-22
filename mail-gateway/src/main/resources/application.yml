@@ -45,5 +45,12 @@ spring:
           uri: lb://mail-prodoct
           ## 断言规则详见 spring gateway doc, 多种断言规则任意挑选
           predicates:
-            - Host=**.weiMail.com
+            - Host=weiMail.com
+
+        - id: search-route
+          ## lb: 负载均衡到 renren-fast
+          uri: lb://mail-search
+          ## 断言规则详见 spring gateway doc, 多种断言规则任意挑选
+          predicates:
+            - Host=search.weiMail.com
 
