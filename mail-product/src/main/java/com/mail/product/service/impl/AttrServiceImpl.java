@@ -114,7 +114,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
             CategoryEntity categoryEntity = categoryDao.selectById(attrEntity.getCatelogId());
             if (categoryEntity != null) {
-                attrRespVo.setCatelogName(categoryEntity.getName());
+                attrRespVo.setCatalogName(categoryEntity.getName());
             }
 
             return attrRespVo;
@@ -146,10 +146,10 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         // 设置分类信息
         Long[] catelogPath = categoryService.findCatelogPath(attrEntity.getCatelogId());
-        attrRespVo.setCatelogPath(catelogPath);
+        attrRespVo.setCatalogPath(catelogPath);
         CategoryEntity categoryEntity = categoryDao.selectById(attrEntity.getCatelogId());
         if (categoryEntity != null) {
-            attrRespVo.setCatelogName(categoryEntity.getName());
+            attrRespVo.setCatalogName(categoryEntity.getName());
         }
 
         return attrRespVo;
