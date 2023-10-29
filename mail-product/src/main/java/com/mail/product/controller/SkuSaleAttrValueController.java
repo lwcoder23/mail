@@ -1,15 +1,12 @@
 package com.mail.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.mail.product.entity.SkuSaleAttrValueEntity;
 import com.mail.product.service.SkuSaleAttrValueService;
@@ -53,6 +50,13 @@ public class SkuSaleAttrValueController {
 
         return R.ok().put("skuSaleAttrValue", skuSaleAttrValue);
     }
+
+    @GetMapping(value = "/stringList/{skuId}")
+    List<String> getSkuSaleAttrValues(@PathVariable("skuId") Long skuId) {
+        List<String> skuSaleAttrValuesAsStringList = skuSaleAttrValueService.getSkuSaleAttrValuesAsStringList(skuId);
+        return skuSaleAttrValuesAsStringList;
+    }
+
 
     /**
      * 保存
