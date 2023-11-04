@@ -29,11 +29,11 @@ public interface ProductFeignService {
     List<String> getSkuSaleAttrValues(@PathVariable("skuId") Long skuId);
 
     /**
-     * 根据skuId查询当前商品的最新价格
+     * 根据skuId查询当前商品的最新价格，在加入购物车后更新变动的价格
      * @param skuId
      * @return
      */
     @GetMapping(value = "/product/skuinfo/{skuId}/price")
-    BigDecimal getPrice(@PathVariable("skuId") Long skuId);
+    R getPrice(@PathVariable("skuId") Long skuId);
 
 }

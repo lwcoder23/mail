@@ -13,6 +13,7 @@ import com.mail.product.feign.SearchFeignService;
 import com.mail.product.feign.WareFeignService;
 import com.mail.product.service.*;
 import com.mail.product.vo.*;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,10 +91,12 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     /**
      * //TODO 高级部分完善
+     *  不要求高并发 所以适合使用 Seata的 AT（自动事务） 模式
      * @param saveVo
      */
-    @Transactional
     @Override
+    @Transactional
+    @GlobalTransactional
     public void saveSpuInfo(SpuSaveVo saveVo) {
         //1、保存spu基本信息 pms_spu_info
         SpuInfoEntity infoEntity = new SpuInfoEntity();

@@ -64,3 +64,8 @@ spring:
           predicates:
             - Host=cart.weiMail.com
 
+        - id: order-route
+          uri: lb://mail-order
+          predicates:
+            - Host=order.weiMail.com
+

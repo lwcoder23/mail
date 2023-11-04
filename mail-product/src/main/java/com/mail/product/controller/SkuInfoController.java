@@ -29,6 +29,12 @@ public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
 
+    @GetMapping(value = "/{skuId}/price")
+    public R getPrice(@PathVariable("skuId") Long skuId) {
+        BigDecimal price = skuInfoService.getOne(new QueryWrapper<SkuInfoEntity>().eq("sku_id", skuId)).getPrice();
+        return R.ok().setData(price);
+    }
+
     /**
      * 列表
      */
@@ -40,7 +46,6 @@ public class SkuInfoController {
         return R.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */
@@ -50,12 +55,6 @@ public class SkuInfoController {
 		SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
 
         return R.ok().put("skuInfo", skuInfo);
-    }
-
-    @GetMapping(value = "/product/skuinfo/{skuId}/price")
-    BigDecimal getPrice(@PathVariable("skuId") Long skuId) {
-        BigDecimal price = skuInfoService.getOne(new QueryWrapper<SkuInfoEntity>().eq("sku_id", skuId)).getPrice();
-        return price;
     }
 
     /**

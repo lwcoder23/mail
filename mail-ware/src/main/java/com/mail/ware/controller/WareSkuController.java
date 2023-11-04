@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 // import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.common.exception.BizCodeEnum;
+import com.common.exception.NoStockException;
 import com.mail.ware.vo.SkuHasStockVo;
+import com.mail.ware.vo.WareSkuLockVo;
 import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +42,27 @@ public class WareSkuController {
         PageUtils page = wareSkuService.queryPage(params);
 
         return R.ok().put("page", page);
+    }
+
+    /**
+     * 锁定库存
+     * @param vo
+     *
+     * 库存解锁的场景
+     *      1）、下订单成功，订单过期没有支付被系统自动取消或者被用户手动取消，都要解锁库存
+     *      2）、下订单成功，库存锁定成功，接下来的业务调用失败，导致订单回滚。之前锁定的库存就要自动解锁
+     *
+     * @return
+     */
+    @PostMapping(value = "/lock/order")
+    public R orderLockStock(@RequestBody WareSkuLockVo vo) {
+
+        try {
+            boolean lockStock = wareSkuService.orderLockStock(vo);
+            return R.ok().setData(lockStock);
+        } catch (NoStockException e) {
+            return R.error(BizCodeEnum.NO_STOCK_EXCEPTION.getCode(),BizCodeEnum.NO_STOCK_EXCEPTION.getMessage());
+        }
     }
 
     @PostMapping("/hasStock")

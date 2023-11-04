@@ -21,7 +21,7 @@ public class CartController {
     private CartService cartService;
 
     /**
-     * 获取当前用户的购物车商品项
+     * 获取当前用户的购物车商品项，被远程调用，在订单确认页面
      *
      * @return
      */

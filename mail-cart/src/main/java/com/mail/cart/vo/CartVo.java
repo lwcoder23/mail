@@ -60,7 +60,6 @@ public class CartVo {
         return count;
     }
 
-
     public BigDecimal getTotalAmount() {
         BigDecimal amount = new BigDecimal("0");
         // 计算购物项总价

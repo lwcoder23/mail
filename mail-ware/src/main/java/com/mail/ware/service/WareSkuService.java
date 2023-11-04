@@ -1,9 +1,13 @@
 package com.mail.ware.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.common.to.OrderTo;
+import com.common.to.mq.StockLockedTo;
 import com.common.utils.PageUtils;
 import com.mail.ware.entity.WareSkuEntity;
 import com.mail.ware.vo.SkuHasStockVo;
+import com.mail.ware.vo.WareSkuLockVo;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -22,5 +26,13 @@ public interface WareSkuService extends IService<WareSkuEntity> {
     void addStock(Long skuId, Long wareId, Integer skuNum);
 
     List<SkuHasStockVo> getSkusHasStock(List<Long> skuIds);
+
+    boolean orderLockStock(WareSkuLockVo vo);
+
+    void unlockStock(StockLockedTo to);
+
+    @Transactional(rollbackFor = Exception.class)
+    void unlockStock(OrderTo orderTo);
+
 }
 

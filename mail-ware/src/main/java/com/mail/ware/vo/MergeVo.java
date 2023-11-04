@@ -1,11 +1,21 @@
 package com.mail.ware.vo;
 
 import lombok.Data;
+
 import java.util.List;
+
+/**
+ * @Description:
+ * @Created: with IntelliJ IDEA.
+ * @author: 夏沫止水
+ * @createTime: 2020-06-01 17:04
+ **/
 
 @Data
 public class MergeVo {
 
-   private Long purchaseId; //整单id
-   private List<Long> items;//[1,2,3,4] //合并项集合
+    private Long purchaseId;
+
+    private List<Long> items;
+
 }
