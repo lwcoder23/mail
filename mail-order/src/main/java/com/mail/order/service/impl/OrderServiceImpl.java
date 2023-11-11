@@ -123,7 +123,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
         String orderToken = vo.getOrderToken();
 
-        //通过lure脚本原子验证令牌和删除令牌
+        //通过 lure脚本原子验证令牌和删除令牌
         Long result = redisTemplate.execute(new DefaultRedisScript<Long>(script, Long.class),
                 Arrays.asList(USER_ORDER_TOKEN_PREFIX + memberResponseVo.getId()),
                 orderToken);

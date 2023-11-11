@@ -57,6 +57,7 @@ public class MailSearchServiceImpl implements MailSearchService {
 
     @Override
     public SearchResult search(SearchParam param) {
+
         //1、动态构建出查询需要的 DSL语句
         SearchResult result = null;
         //1.1、准备检索请求

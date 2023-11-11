@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mail-seckill
+
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        namespace: mail-seckill

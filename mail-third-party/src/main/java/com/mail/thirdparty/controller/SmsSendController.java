@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 @Controller
 @RequestMapping(value = "/sms")
-public class SmsSendController {
+public class    SmsSendController {
 
     @Resource
     private SmsComponent smsComponent;
